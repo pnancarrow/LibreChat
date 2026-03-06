@@ -54,6 +54,10 @@ export interface AnthropicConfigOptions {
   proxy?: string | null;
   /** URL for a reverse proxy, if used */
   reverseProxyUrl?: string | null;
+  /** Custom HTTP headers to include in every request.
+   * Useful for AI gateways (e.g. Cloudflare AI Gateway) that require
+   * additional headers such as `cf-aig-authorization`. */
+  headers?: Record<string, string>;
 }
 
 /**

@@ -73,6 +73,13 @@ function getLLMConfig(
     requestOptions.clientOptions.defaultHeaders = headers;
   }
 
+  if (options.headers && Object.keys(options.headers).length > 0 && requestOptions.clientOptions) {
+    requestOptions.clientOptions.defaultHeaders = {
+      ...requestOptions.clientOptions.defaultHeaders,
+      ...options.headers,
+    };
+  }
+
   if (options.proxy && requestOptions.clientOptions) {
     const proxyAgent = new ProxyAgent(options.proxy);
     requestOptions.clientOptions.fetchOptions = {

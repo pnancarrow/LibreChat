@@ -136,15 +136,23 @@ export const initializeOpenAI = async ({
     user: req.user.id,
   };
 
+  const openAIConfig = appConfig?.endpoints?.[EModelEndpoint.openAI];
+  const allConfig = appConfig?.endpoints?.all;
+
   const finalClientOptions: OpenAIConfigOptions = {
     ...clientOptions,
     modelOptions,
   };
 
-  const options = getOpenAIConfig(apiKey, finalClientOptions, endpoint);
+  /** Merge headers from the openAI endpoint config in librechat.yaml */
+  if (!isAzureOpenAI && openAIConfig?.headers && typeof openAIConfig.headers === 'object') {
+    finalClientOptions.headers = {
+      ...(finalClientOptions.headers ?? {}),
+      ...(openAIConfig.headers as Record<string, string>),
+    };
+  }
 
-  const openAIConfig = appConfig.endpoints?.[EModelEndpoint.openAI];
-  const allConfig = appConfig.endpoints?.all;
+  const options = getOpenAIConfig(apiKey, finalClientOptions, endpoint);
   const azureRate = modelName?.includes('gpt-4') ? 30 : 17;
 
   let streamRate: number | undefined;

@@ -204,6 +204,11 @@ export const baseEndpointSchema = z.object({
     .optional(),
   titleEndpoint: z.string().optional(),
   titlePromptTemplate: z.string().optional(),
+  /** Custom HTTP headers to include in every request to the provider.
+   * Useful for AI gateways (e.g. Cloudflare AI Gateway) that require
+   * additional headers such as `cf-aig-authorization` or metadata headers.
+   * Supports `${ENV_VAR}` syntax for environment variable substitution. */
+  headers: z.record(z.string()).optional(),
 });
 
 export type TBaseEndpoint = z.infer<typeof baseEndpointSchema>;

@@ -222,6 +222,31 @@ endpoints:
   #   minRelevanceScore: 0.45
   #   # (optional) Agent Capabilities available to all users. Omit the ones you wish to exclude. Defaults to list below.
   #   capabilities: ["execute_code", "file_search", "actions", "tools"]
+  # anthropic:
+    # # (optional) Custom HTTP headers sent with every request.
+    # # Useful for AI gateways such as Cloudflare AI Gateway that require
+    # # additional authentication or metadata headers.
+    # # Supports ${ENV_VAR} syntax for environment variable substitution.
+    # headers:
+    #   cf-aig-authorization: "Bearer ${CF_AIG_TOKEN}"
+    #   cf-aig-metadata: '{"source":"librechat"}'
+
+  # openAI:
+    # # (optional) Custom HTTP headers sent with every request to the OpenAI endpoint.
+    # # Useful for routing through an AI gateway (e.g. Cloudflare AI Gateway).
+    # # Supports ${ENV_VAR} syntax for environment variable substitution.
+    # headers:
+    #   cf-aig-authorization: "Bearer ${CF_AIG_TOKEN}"
+    #   cf-aig-metadata: '{"source":"librechat"}'
+
+  # google:
+    # # (optional) Custom HTTP headers sent with every request to the Google endpoint.
+    # # Useful for routing through an AI gateway (e.g. Cloudflare AI Gateway).
+    # # Supports ${ENV_VAR} syntax for environment variable substitution.
+    # headers:
+    #   cf-aig-authorization: "Bearer ${CF_AIG_TOKEN}"
+    #   cf-aig-metadata: '{"source":"librechat"}'
+
   custom:
     # Groq Example
     - name: 'groq'

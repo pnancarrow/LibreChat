@@ -29,6 +29,9 @@ const initializeClient = async ({ req, res, endpointOption, overrideModel, optio
   if (anthropicConfig) {
     clientOptions.streamRate = anthropicConfig.streamRate;
     clientOptions.titleModel = anthropicConfig.titleModel;
+    if (anthropicConfig.headers && typeof anthropicConfig.headers === 'object') {
+      clientOptions.headers = anthropicConfig.headers;
+    }
   }
 
   const allConfig = appConfig.endpoints?.all;

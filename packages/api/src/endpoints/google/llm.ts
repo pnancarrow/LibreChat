@@ -190,7 +190,10 @@ export function getGoogleConfig(
   if (authHeader) {
     (llmConfig as GoogleClientOptions).customHeaders = {
       Authorization: `Bearer ${apiKey}`,
+      ...(options.headers ?? {}),
     };
+  } else if (options.headers && Object.keys(options.headers).length > 0) {
+    (llmConfig as GoogleClientOptions).customHeaders = { ...options.headers };
   }
 
   const tools: GoogleAIToolType[] = [];
