@@ -687,7 +687,9 @@ const getListAgentsHandler = async (req, res) => {
           updateAgent: db.updateAgent,
         });
         cachedRefresh = { urlCache };
-        await cache.set(refreshKey, cachedRefresh, Time.THIRTY_MINUTES);
+        const s3UrlExpirySeconds = parseInt(process.env.S3_URL_EXPIRY_SECONDS || '120', 10);
+        const cacheTtlMs = Math.min(s3UrlExpirySeconds * 800, Time.THIRTY_MINUTES);
+        await cache.set(refreshKey, cachedRefresh, cacheTtlMs);
       } catch (err) {
         logger.error('[/Agents] Error refreshing avatars for full list: %o', err);
       }
